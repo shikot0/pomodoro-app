@@ -1,11 +1,15 @@
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { Text, Pressable, Dimensions} from 'react-native';
 
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { StatusBar } from 'expo-status-bar';
+
+
+const {width, height} = Dimensions.get('screen');
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -19,20 +23,40 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
+    <>
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
+        headerShown: false,
+        tabBarStyle: {
+          // backgroundColor: 'transparent'
+          // position: 'absolute',
+          // borderRadius: 100,
+          // backgroundColor: 'rgba(0, 0, 0, .75)',
+          // bottom: 16,
+          // width: 250,
+          // height: 65,
+          // left: width/2,
+          // transform: [
+          //   {
+          //     translateX: -125
+          //   }
+          // ]
+          // height: 75,
+          // paddingVertical: 16,
+        }
+      }}
+      
+      // tabBar={({descriptors, insets, navigation, state}) => <TabBar />}
+      // tabBar={({descriptors, insets, navigation, state}) => <TabBar descriptors={descriptors} />}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Timer',
+          // headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="clock-o" color={color} />,
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/settingsModal" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
@@ -47,13 +71,23 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="two"
+      <Tabs.Screen 
+        name="settings"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Settings',
+          tabBarIcon: ({color}) => <TabBarIcon name="gear" color={color} />
         }}
       />
+
+      {/* <Tabs.Screen
+        name="sessions"
+        options={{
+          title: 'Sessions',
+          tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
+        }}
+      /> */}
     </Tabs>
+    <StatusBar hidden={false} backgroundColor="black" />
+    </>
   );
 }
