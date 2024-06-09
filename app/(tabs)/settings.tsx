@@ -65,7 +65,7 @@ export default function SettingsPage() {
                                 >
                                     {/* <CircularProgress value={45} lineWidth={value} size={150} circleLength={250} />   */}
                                     <CircularProgress value={75} lineWidth={value * .75} size={150} circleLength={250} />  
-                                    <Text>{title}</Text>
+                                    <Text style={styles.optionHeading}>{title}</Text>
                                 </Pressable>    
                             )
                         })}
@@ -97,7 +97,9 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         gap: 16,
-        justifyContent: 'space-between',
+        rowGap: 32,
+        // justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
         flexWrap: 'wrap'
     },
@@ -119,17 +121,22 @@ const styles = StyleSheet.create({
         height: 36,
     },
     timerWidthOption: {
+        position: 'relative',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        // width: 150,
-        width: 175,
+        width: 150,
+        // width: 175,
         aspectRatio: 1,
         borderRadius: 8,
-        paddingVertical: 8,
+        // paddingVertical: 8,
         borderWidth: 1,
-        // borderColor: 'red',
+        borderColor: 'transparent',
         borderStyle: 'solid'
+    },
+    optionHeading: {
+        position: 'absolute',
+        fontSize: 12,
     },
     widthOptionsWrapper: {
         display: 'flex',
